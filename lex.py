@@ -1,0 +1,94 @@
+import ply.lex as lex
+
+# List of token names
+tokens = (
+    'NUMBER',
+    'FLOTANTE',  # Included FLOTANTE
+    'PLUS',
+    'MINUS',
+    'TIMES',
+    'DIVIDE',
+    'LPAREN',
+    'RPAREN',
+)
+
+
+# reserved words
+reserved = {
+   'if' : 'IF',
+   'then' : 'THEN',
+   'else' : 'ELSE',
+   'while' : 'WHILE',
+   'class' : "CLASS"
+}
+
+# Regular expression rules for simple tokens
+t_PLUS    = r'\+'
+t_MINUS   = r'-'
+t_TIMES   = r'\*'
+t_DIVIDE  = r'/'
+t_LPAREN  = r'\('
+t_RPAREN  = r'\)'
+
+# Rule for FLOTANTE (must come before NUMBER so it matches decimals first)
+def t_FLOTANTE(t):
+    r'\d+\.\d+'
+    t.value = float(t.value)
+    return t
+
+# A regular expression rule with some action code
+def t_NUMBER(t):
+    r'\d+'
+    t.value = int(t.value)    
+    return t
+
+# Define a rule so we can track line numbers
+def t_newline(t):
+    r'\n+'
+    t.lexer.lineno += len(t.value)
+
+def t_VARIABLE(t):
+    r''
+    t.value = reserved.get(t.value, "VARIABLE"))
+    return 
+
+# A string containing ignored characters (spaces and tabs)
+t_ignore  = ' \t'
+
+# Error handling rule
+def t_error(t):
+    print("Illegal character '%s'" % t.value[0])
+    t.lexer.skip(1)
+
+# Build the lexer
+lexer = lex.lex()
+
+# Test it out (added a float to the test data to prove it works)
+data = '''
+3 + 4.5 * 10
+    + -20 *2
+'''
+
+# --- TEST 1 ---
+print("--- FIRST LOOP ---")
+lexer.input(data)
+while True:
+    tok = lexer.token()
+    if not tok: 
+        break      
+    print(tok)
+
+# --- TEST 2 ---
+print("\n--- SECOND LOOP (FOR LOOP) ---")
+lexer.input(data) # Reset the input stream
+for tok in lexer:
+    print(tok)
+
+# --- TEST 3 ---
+print("\n--- THIRD LOOP (ATTRIBUTES) ---")
+lexer.input(data) # Reset the input stream
+while True:
+    tok = lexer.token()
+    if not tok: 
+        break      
+    print(tok.type, tok.value, tok.lineno, tok.lexpos)
