@@ -49,7 +49,7 @@ def t_newline(t):
 
 def t_VARIABLE(t):
     r''
-    t.value = reserved.get(t.value, "VARIABLE"))
+    t.value = reserved.get(t.value, "VARIABLE")
     return 
 
 # A string containing ignored characters (spaces and tabs)
