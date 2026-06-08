@@ -204,52 +204,52 @@ lexer = lex.lex()
 # Código Ruby de prueba
 # ============================================================
 
-data = '''
-PI = 3.1416
+# data = '''
+# PI = 3.1416
 
-@contador = 0
-@@total = 100
+# @contador = 0
+# @@total = 100
 
-edad = 20
-nombre = "Camila"
+# edad = 20
+# nombre = "Camila"
 
-if edad >= 18 && edad <= 60
-    puts nombre
-else
-    puts "Menor de edad"
-end
-'''
+# if edad >= 18 && edad <= 60
+#     puts nombre
+# else
+#     puts "Menor de edad"
+# end
+# '''
 
 # ============================================================
 # TEST 1
 # ============================================================
 
-print("----- TOKENS -----")
+# print("----- TOKENS -----")
 
-lexer.lineno = 1
-lexer.input(data)
+# lexer.lineno = 1
+# lexer.input(data)
 
-while True:
-    tok = lexer.token()
+# while True:
+#     tok = lexer.token()
 
-    if not tok:
-        break
+#     if not tok:
+#         break
 
-    print(tok)
+#     print(tok)
 
 # ============================================================
 # TEST 2
 # ============================================================
 
-print("\n----- ATRIBUTOS -----")
+# print("\n----- ATRIBUTOS -----")
 
-lexer.lineno = 1
-lexer.input(data)
+# lexer.lineno = 1
+# lexer.input(data)
 
-while True:
-    tok = lexer.token()
+# while True:
+#     tok = lexer.token()
 
-    if not tok:
-        break
+#     if not tok:
+#         break
 
-    print(tok.type, tok.value, tok.lineno, tok.lexpos)
+#     print(tok.type, tok.value, tok.lineno, tok.lexpos)

@@ -1,0 +1,80 @@
+============================================================
+LOG DE ANÁLISIS LÉXICO - AVANCE 1
+============================================================
+Desarrollador : josueguerrero
+Fecha y Hora  : 07/06/2026 22:09:19
+Archivo Test  : algoritmo_ruby.rb
+============================================================
+
+TIPO TOKEN               VALOR                         LÍNEA     POSICIÓN  
+---------------------------------------------------------------------------
+CONSTANTE                TASA_IMPUESTO                 5         184       
+ASIGNACION               =                             5         198       
+FLOTANTE                 0.12                          5         200       
+CONSTANTE                LIMITE_BONO                   6         205       
+ASIGNACION               =                             6         217       
+FLOTANTE                 500.0                         6         219       
+DEF                      def                           8         226       
+VARIABLE_LOCAL           calcular_neto                 8         230       
+LPAREN                   (                             8         243       
+VARIABLE_LOCAL           sueldo_base                   8         244       
+COMA                     ,                             8         255       
+VARIABLE_LOCAL           horas_extra                   8         257       
+RPAREN                   )                             8         268       
+VARIABLE_INSTANCIA       @bonificacion                 9         274       
+ASIGNACION               =                             9         288       
+VARIABLE_LOCAL           horas_extra                   9         290       
+PRODUCTO                 *                             9         302       
+FLOTANTE                 25.5                          9         304       
+VARIABLE_LOCAL           total_ingresos                10        314       
+ASIGNACION               =                             10        329       
+VARIABLE_LOCAL           sueldo_base                   10        331       
+MAS                      +                             10        343       
+VARIABLE_INSTANCIA       @bonificacion                 10        345       
+IF                       if                            12        368       
+VARIABLE_LOCAL           total_ingresos                12        372       
+MAYORIGUAL               >=                            12        387       
+CONSTANTE                LIMITE_BONO                   12        390       
+AND                      &&                            12        402       
+VARIABLE_LOCAL           sueldo_base                   12        405       
+DIFERENTE                !=                            12        417       
+NIL                      nil                           12        420       
+VARIABLE_LOCAL           total_ingresos                13        433       
+MASIGUAL                 +=                            13        448       
+FLOTANTE                 50.0                          13        451       
+ELSE                     else                          14        460       
+VARIABLE_LOCAL           total_ingresos                15        474       
+MENOSIGUAL               -=                            15        489       
+FLOTANTE                 10.0                          15        492       
+END                      end                           16        501       
+VARIABLE_LOCAL           descuento                     19        544       
+ASIGNACION               =                             19        554       
+VARIABLE_LOCAL           total_ingresos                19        557       
+PRODUCTO                 *                             19        572       
+CONSTANTE                TASA_IMPUESTO                 19        574       
+VARIABLE_LOCAL           salario_final                 20        592       
+ASIGNACION               =                             20        606       
+VARIABLE_LOCAL           total_ingresos                20        609       
+MENOS                    -                             20        624       
+VARIABLE_LOCAL           descuento                     20        626       
+RETURN                   return                        22        645       
+VARIABLE_LOCAL           salario_final                 22        652       
+END                      end                           23        666       
+VARIABLE_LOCAL           nombre_empleado               26        711       
+ASIGNACION               =                             26        727       
+CADENA                   "Adrian Guerrero"             26        729       
+VARIABLE_LOCAL           edad                          27        747       
+ASIGNACION               =                             27        752       
+ENTERO                   21                            27        754       
+VARIABLE_LOCAL           status_activo                 28        757       
+ASIGNACION               =                             28        771       
+TRUE                     true                          28        773       
+PUTS                     puts                          30        779       
+VARIABLE_LOCAL           nombre_empleado               30        784       
+PUTS                     puts                          31        800       
+VARIABLE_LOCAL           calcular_neto                 31        805       
+LPAREN                   (                             31        818       
+ENTERO                   450                           31        819       
+COMA                     ,                             31        822       
+ENTERO                   4                             31        824       
+RPAREN                   )                             31        825       
