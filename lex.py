@@ -11,6 +11,7 @@ import ply.lex as lex
 reserved = {
     'if'     : 'IF',
     'else'   : 'ELSE',
+    'elsif'  : 'ELSIF',
     'while'  : 'WHILE',
     'for'    : 'FOR',
     'def'    : 'DEF',
@@ -32,6 +33,7 @@ tokens = (
     # Variables
     'VARIABLE_LOCAL',
     'VARIABLE_INSTANCIA',
+    'VARIABLE_GLOBAL',
     'CONSTANTE',
 
     # Tipos de datos
@@ -89,7 +91,11 @@ t_MENOSIGUAL  = r'-='
 t_MULTIGUAL   = r'\*='
 t_DIVIGUAL    = r'/='
 
-# Relacionales
+# ============================================================
+# INICIO APORTE CAMILA MORÁN
+# Operadores Relacionales
+# ============================================================
+
 t_IGUALDAD    = r'=='
 t_DIFERENTE   = r'!='
 t_MAYORIGUAL  = r'>='
@@ -115,13 +121,17 @@ t_MODULO      = r'%'
 # Delimitadores
 t_LPAREN      = r'\('
 t_RPAREN      = r'\)'
+
 t_LBRACKET    = r'\['
 t_RBRACKET    = r'\]'
+
 t_LBRACE      = r'\{'
 t_RBRACE      = r'\}'
+
 t_COMA        = r','
 t_PUNTO       = r'\.'
 t_DOSPUNTOS   = r':'
+
 
 # ============================================================
 # Reglas con acciones
@@ -149,6 +159,10 @@ def t_VARIABLE_INSTANCIA(t):
     r'@[a-zA-Z_][a-zA-Z0-9_]*'
     return t
 
+def t_VARIABLE_GLOBAL(t):
+    r'\$[a-zA-Z_][a-zA-Z0-9_]*'
+    return t
+
 # Constantes
 def t_CONSTANTE(t):
     r'[A-Z][a-zA-Z0-9_]*'
@@ -167,6 +181,10 @@ def t_VARIABLE_LOCAL(t):
 def t_COMMENT(t):
     r'\#.*'
     pass
+
+# ============================================================
+# FIN APORTE CAMILA MORÁN
+# ============================================================
 
 # ============================================================
 # Saltos de línea

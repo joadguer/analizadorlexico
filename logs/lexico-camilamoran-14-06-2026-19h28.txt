@@ -1,0 +1,115 @@
+============================================================
+LOG DE ANÁLISIS LÉXICO - AVANCE 1
+============================================================
+Desarrollador : camilamoran
+Fecha y Hora  : 14/06/2026 19:28:38
+Archivo Test  : algoritmo_camila.rb
+============================================================
+
+TIPO TOKEN               VALOR                         LÍNEA     POSICIÓN  
+--------------------------------------------------------------------------------
+DEF                      def                           3         36        
+VARIABLE_LOCAL           revisar_inventario            3         40        
+LPAREN                   (                             3         58        
+VARIABLE_LOCAL           stock                         3         59        
+COMA                     ,                             3         64        
+VARIABLE_LOCAL           minimo                        3         66        
+RPAREN                   )                             3         72        
+IF                       if                            5         79        
+VARIABLE_LOCAL           stock                         5         82        
+MAYOR                    >                             5         88        
+VARIABLE_LOCAL           minimo                        5         90        
+AND                      &&                            5         97        
+VARIABLE_LOCAL           stock                         5         100       
+DIFERENTE                !=                            5         106       
+ENTERO                   0                             5         109       
+PUTS                     puts                          6         119       
+CADENA                   "Inventario suficiente"       6         124       
+VARIABLE_LOCAL           elsif                         8         153       
+VARIABLE_LOCAL           stock                         8         159       
+IGUALDAD                 ==                            8         165       
+VARIABLE_LOCAL           minimo                        8         168       
+PUTS                     puts                          9         183       
+CADENA                   "Inventario en limite"        9         188       
+ELSE                     else                          11        216       
+PUTS                     puts                          12        229       
+CADENA                   "Inventario bajo"             12        234       
+END                      end                           13        256       
+RETURN                   return                        15        265       
+VARIABLE_LOCAL           stock                         15        272       
+END                      end                           16        278       
+VARIABLE_LOCAL           stock                         18        283       
+ASIGNACION               =                             18        289       
+ENTERO                   18                            18        291       
+VARIABLE_LOCAL           stock_minimo                  19        294       
+ASIGNACION               =                             19        307       
+ENTERO                   10                            19        309       
+VARIABLE_LOCAL           contador                      20        312       
+ASIGNACION               =                             20        321       
+ENTERO                   0                             20        323       
+VARIABLE_LOCAL           stock                         22        326       
+ASIGNACION               =                             22        332       
+VARIABLE_LOCAL           revisar_inventario            22        334       
+LPAREN                   (                             22        352       
+VARIABLE_LOCAL           stock                         22        353       
+COMA                     ,                             22        358       
+VARIABLE_LOCAL           stock_minimo                  22        360       
+RPAREN                   )                             22        372       
+VARIABLE_LOCAL           stock                         24        375       
+MASIGUAL                 +=                            24        381       
+ENTERO                   5                             24        384       
+VARIABLE_LOCAL           stock                         25        386       
+MENOSIGUAL               -=                            25        392       
+ENTERO                   2                             25        395       
+VARIABLE_LOCAL           stock                         26        397       
+MULTIGUAL                *=                            26        403       
+ENTERO                   2                             26        406       
+VARIABLE_LOCAL           stock                         27        408       
+DIVIGUAL                 /=                            27        414       
+ENTERO                   3                             27        417       
+WHILE                    while                         29        420       
+VARIABLE_LOCAL           contador                      29        426       
+MENOR                    <                             29        435       
+ENTERO                   5                             29        437       
+VARIABLE_LOCAL           stock                         31        444       
+MENOSIGUAL               -=                            31        450       
+ENTERO                   1                             31        453       
+VARIABLE_LOCAL           contador                      32        459       
+MASIGUAL                 +=                            32        468       
+ENTERO                   1                             32        471       
+PUTS                     puts                          34        478       
+VARIABLE_LOCAL           stock                         34        483       
+IF                       if                            36        494       
+VARIABLE_LOCAL           stock                         36        497       
+MENOR                    <                             36        503       
+VARIABLE_LOCAL           stock_minimo                  36        505       
+PUTS                     puts                          37        526       
+CADENA                   "Reabastecer inventario"      37        531       
+END                      end                           38        560       
+END                      end                           40        565       
+VARIABLE_LOCAL           productos                     42        570       
+ASIGNACION               =                             42        580       
+LBRACKET                 [                             42        582       
+ENTERO                   10                            42        583       
+COMA                     ,                             42        585       
+ENTERO                   20                            42        586       
+COMA                     ,                             42        588       
+ENTERO                   30                            42        589       
+COMA                     ,                             42        591       
+ENTERO                   40                            42        592       
+RBRACKET                 ]                             42        594       
+VARIABLE_LOCAL           datos                         44        597       
+ASIGNACION               =                             44        603       
+LBRACE                   {                             44        605       
+VARIABLE_LOCAL           codigo                        45        611       
+DOSPUNTOS                :                             45        617       
+ENTERO                   1001                          45        619       
+COMA                     ,                             45        623       
+VARIABLE_LOCAL           cantidad                      46        629       
+DOSPUNTOS                :                             46        637       
+VARIABLE_LOCAL           stock                         46        639       
+RBRACE                   }                             47        645       
+PUTS                     puts                          49        648       
+VARIABLE_LOCAL           productos                     49        653       
+PUTS                     puts                          50        663       
+VARIABLE_LOCAL           datos                         50        668       
