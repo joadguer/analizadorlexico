@@ -83,3 +83,13 @@ def p_while(p):
     print("WHILE detectado")
     p[0] = ("while", p[2], p[3])
 
+
+# ============================================================
+# ESTRUCTURAS DE DATOS (LISTA SIMPLE) - Camila Morán
+# ============================================================
+
+def p_lista(p):
+    '''expresion : LBRACKET elementos RBRACKET'''
+    p[0] = ("list", p[2])
+
+
