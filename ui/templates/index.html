@@ -198,6 +198,67 @@
             gap: 8px; 
         }
         
+        /* ESTILOS DEL MODAL */
+        .modal-overlay {
+            display: none; /* Oculto por defecto */
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #1a1a1e;
+            border: 1px solid #29292e;
+            border-radius: 8px;
+            padding: 24px;
+            width: 380px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+        .modal-title {
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #fff;
+            border-bottom: 1px solid #29292e;
+            padding-bottom: 10px;
+        }
+        .modal-section {
+            margin-bottom: 20px;
+        }
+        .modal-section p {
+            color: #a8a8b3;
+            font-size: 13px;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        .opcion-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .btn-guardar {
+            background-color: #64b5f6; /* Un color azul para diferenciarlo */
+            color: #121214;
+            border: none;
+            padding: 8px 18px;
+            font-family: 'Inter', sans-serif;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px; 
+        }
 
         /* COLORES DIFERENTES PARA CADA TIPO DE TOKEN */
         .token-var-instancia { color: #b388ff; font-weight: 500; }  /* Morado */
@@ -221,6 +282,14 @@
                         <polygon points="6 3 20 12 6 21 6 3"></polygon>
                     </svg>
                     Analizar Código
+                </button>
+                <button type="button" class="btn-guardar" onclick="abrirModal()">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                        <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                        <polyline points="7 3 7 8 15 8"></polyline>
+                    </svg>
+                    Generar Logs
                 </button>
                 <button type="submit" name="limpiar" class="btn-limpiar"> 
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -362,7 +431,58 @@
             <div>Josue Guerrero - joadguer  •  Camila Morán - caalmora</div>
         </div>
 
+
+        <div id="modalLogs" class="modal-overlay">
+            <div class="modal-content">
+                <div class="modal-title">Configuración de Logs</div>
+                
+                <div class="modal-section">
+                    <p>❯ USUARIO (Autor)</p>
+                    <label class="opcion-label">
+                        <input type="radio" name="usuarioGit" value="joadguer" > joadguer
+                    </label>
+                    <label class="opcion-label">
+                        <input type="radio" name="usuarioGit" value="caalmora" > caalmora
+                    </label>
+                </div>
+
+                <div class="modal-section">
+                    <p>❯ FASES A EXPORTAR</p>
+                    <label class="opcion-label">
+                        <input type="checkbox" name="fases" value="lexico" checked> Log Léxico
+                    </label>
+                    <label class="opcion-label">
+                        <input type="checkbox" name="fases" value="sintactico"> Log Sintáctico
+                    </label>
+                    <label class="opcion-label">
+                        <input type="checkbox" name="fases" value="semantico"> Log Semántico
+                    </label>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn-limpiar" onclick="cerrarModal()">Cancelar</button>
+                    <button type="submit" name="guardar_logs" class="btn-analizar">Confirmar y Guardar</button>
+                </div>
+            </div>
+        </div>
+
     </form>
 
+    <script>
+        function abrirModal() {
+            document.getElementById('modalLogs').style.display = 'flex';
+        }
+        function cerrarModal() {
+            document.getElementById('modalLogs').style.display = 'none';
+        }
+        
+        // Cerrar modal si el usuario hace clic fuera de la ventana
+        window.onclick = function(event) {
+            let modal = document.getElementById('modalLogs');
+            if (event.target == modal) {
+                cerrarModal();
+            }
+        }
+    </script>
 </body>
 </html>

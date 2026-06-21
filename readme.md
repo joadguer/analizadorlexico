@@ -87,6 +87,11 @@ Asegúrate de estar posicionado en la terminal un directorio arriba de `mi_proye
 python -m mi_proyecto.ui.app
 ```
 
+o tambien puedes usar si estas en la raiz de proyecto
+
+```bash
+python -m ui.app
+```
 Una vez ejecutado, la terminal te indicará que el servidor local está activo. Abre tu navegador web favorito e ingresa a la siguiente dirección:
 
 ```text
