@@ -95,7 +95,7 @@ def p_expr_var(p):
 
 
 # ============================================================
-# EXPRESIONES LÓGICAS
+# EXPRESIONES LÓGICAS - Camila Morán
 # ============================================================
 
 def p_expr_logica(p):
@@ -104,18 +104,18 @@ def p_expr_logica(p):
     p[0] = ("logic", p[2], p[1], p[3])
 
 
-def p_expr_relacional(p):
-    '''expresion : expresion MAYOR expresion
-                 | expresion MENOR expresion
-                 | expresion MAYORIGUAL expresion
-                 | expresion MENORIGUAL expresion
-                 | expresion IGUALDAD expresion
-                 | expresion DIFERENTE expresion'''
-    p[0] = ("rel", p[2], p[1], p[3])
+#def p_expr_relacional(p):
+  #  '''expresion : expresion MAYOR expresion
+    #             | expresion MENOR expresion
+      #           | expresion MAYORIGUAL expresion
+     #            | expresion MENORIGUAL expresion
+     #            | expresion IGUALDAD expresion
+     #            | expresion DIFERENTE expresion'''
+    # p[0] = ("rel", p[2], p[1], p[3])
 
 
 # ============================================================
-# ESTRUCTURAS DE DATOS (LISTAS)
+# ESTRUCTURAS DE DATOS (LISTAS) - Camila Morán
 # ============================================================
 
 def p_lista(p):
@@ -123,18 +123,18 @@ def p_lista(p):
     p[0] = ("list", p[2])
 
 
-def p_elementos_lista(p):
-    'elementos : elementos COMA expresion'
-    p[0] = p[1] + [p[3]]
+# def p_elementos_lista(p):
+   # 'elementos : elementos COMA expresion'
+   # p[0] = p[1] + [p[3]]
 
 
-def p_elementos_simple(p):
-    'elementos : expresion'
-    p[0] = [p[1]]
+#def p_elementos_simple(p):
+ #   'elementos : expresion'
+  #  p[0] = [p[1]]
 
 
 # ============================================================
-# ESTRUCTURAS DE CONTROL
+# ESTRUCTURAS DE CONTROL - Camila Morán
 # ============================================================
 
 def p_if(p):
@@ -148,7 +148,7 @@ def p_while(p):
 
 
 # ============================================================
-# FUNCIONES
+# FUNCIONES - Camila Morán
 # ============================================================
 
 def p_function(p):
