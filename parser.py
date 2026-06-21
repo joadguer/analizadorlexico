@@ -26,7 +26,7 @@ log.write("============================================================\n\n")
 # ============================================================
 precedence = (
     ('left', 'MAS', 'MENOS'), # Nivel 1: Menor prioridad (se ejecuta al final)
-    ('left', 'PRODUCTO', 'DIVISION'), # Nivel 2: Mayor prioridad (se ejecuta primero)
+    ('left', 'PRODUCTO', 'DIVISION', 'MODULO'), # Nivel 2: Mayor prioridad (se ejecuta primero)
 )
 
 # ============================================================
@@ -66,12 +66,16 @@ def p_input(p):
 # ============================================================
 
 def p_asignacion_local(p):
-    'instruccion : VARIABLE_LOCAL ASIGNACION expresion'
-    p[0] = ("asignacion_local", p[1], p[3])
+    '''instruccion : VARIABLE_LOCAL ASIGNACION expresion
+                   | VARIABLE_LOCAL MASIGUAL expresion
+                   | VARIABLE_LOCAL MENOSIGUAL expresion'''
+    p[0] = ("asignacion_local", p[2], p[1], p[3])
 
 def p_asignacion_instancia(p):
-    'instruccion : VARIABLE_INSTANCIA ASIGNACION expresion'
-    p[0] = ("asignacion_instancia", p[1], p[3])
+    '''instruccion : VARIABLE_INSTANCIA ASIGNACION expresion
+                   | VARIABLE_INSTANCIA MASIGUAL expresion
+                   | VARIABLE_INSTANCIA MENOSIGUAL expresion'''
+    p[0] = ("asignacion_instancia", p[2], p[1], p[3])
 
 def p_asignacion_constante(p):
     'instruccion : CONSTANTE ASIGNACION expresion'
@@ -85,7 +89,8 @@ def p_expr_arit(p):
     '''expresion : expresion MAS expresion
                  | expresion MENOS expresion
                  | expresion PRODUCTO expresion
-                 | expresion DIVISION expresion'''
+                 | expresion DIVISION expresion
+                 | expresion MODULO expresion'''
     p[0] = ("arith", p[2], p[1], p[3])
 
 def p_expr_agrupada(p):
@@ -98,6 +103,7 @@ def p_expr_termino(p):
                  | CADENA
                  | TRUE
                  | FALSE
+                 | NIL
                  | VARIABLE_LOCAL
                  | VARIABLE_INSTANCIA
                  | CONSTANTE'''
@@ -165,6 +171,10 @@ def p_if(p):
 def p_if_else(p):
     'instruccion : IF expresion instrucciones ELSE instrucciones END'
     p[0] = ("if_else", p[2], p[3], p[5])
+
+def p_if_elsif_else(p):
+    'instruccion : IF expresion instrucciones ELSIF expresion instrucciones ELSE instrucciones END'
+    p[0] = ("if_elsif_else", p[2], p[3], p[5], p[6], p[8])
 
 def p_while(p):
     'instruccion : WHILE expresion instrucciones END'
