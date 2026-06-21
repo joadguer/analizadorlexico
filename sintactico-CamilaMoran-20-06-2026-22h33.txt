@@ -1,0 +1,12 @@
+============================================================
+LOG DE ANÁLISIS SINTÁCTICO - AVANCE 2
+============================================================
+Usuario: CamilaMoran
+Fecha  : 20-06-2026-22h33
+============================================================
+
+ERROR SINTACTICO en token: IVA (tipo CONSTANTE)
+ERROR SINTACTICO en token: ( (tipo LPAREN)
+ERROR SINTACTICO en token: LIMITE_STOCK (tipo CONSTANTE)
+ERROR SINTACTICO en token: true (tipo TRUE)
+ERROR SINTACTICO en token: true (tipo TRUE)
