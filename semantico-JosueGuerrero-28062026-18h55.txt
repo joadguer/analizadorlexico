@@ -1,0 +1,13 @@
+============================================================
+LOG DE ANÁLISIS SEMÁNTICO - AVANCE 3
+============================================================
+Desarrollador: JosueGuerrero
+Fecha        : 28062026-18h55
+============================================================
+
+ERROR SEMÁNTICO: Error Semántico [Asignación]: Modificación no permitida. Ya se ha inicializado la constante 'IMPUESTO' previamente.
+ERROR SEMÁNTICO: Error Semántico [Identificadores]: La variable 'descuento' no ha sido definida en este ámbito.
+
+============================================================
+RESUMEN
+Errores semánticos encontrados: 2

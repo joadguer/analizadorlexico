@@ -1,0 +1,12 @@
+============================================================
+LOG DE ANÁLISIS SEMÁNTICO - AVANCE 3
+============================================================
+Desarrollador: JosueGuerrero
+Fecha        : 28062026-18h50
+============================================================
+
+ERROR SEMÁNTICO: Error Semántico [Asignación]: Modificación no permitida. Ya se ha inicializado la constante 'IMPUESTO' previamente.
+
+============================================================
+RESUMEN
+Errores semánticos encontrados: 1

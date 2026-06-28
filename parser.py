@@ -79,7 +79,8 @@ def p_asignacion_instancia(p):
 
 def p_asignacion_constante(p):
     'instruccion : CONSTANTE ASIGNACION expresion'
-    p[0] = ("asignacion_constante", p[1], p[3])
+    # Agregamos p[2] (el operador '=') para estandarizar la tupla a 4 elementos
+    p[0] = ("asignacion_constante", p[2], p[1], p[3])
 
 # ============================================================
 # EXPRESIONES ARITMÉTICAS (Josue)
@@ -97,17 +98,20 @@ def p_expr_agrupada(p):
     'expresion : LPAREN expresion RPAREN'
     p[0] = p[2]
 
-def p_expr_termino(p):
+def p_expr_literal(p):
     '''expresion : ENTERO
                  | FLOTANTE
                  | CADENA
                  | TRUE
                  | FALSE
-                 | NIL
-                 | VARIABLE_LOCAL
+                 | NIL'''
+    p[0] = p[1]  # Los valores literales pasan directo al AST
+
+def p_expr_variable(p):
+    '''expresion : VARIABLE_LOCAL
                  | VARIABLE_INSTANCIA
                  | CONSTANTE'''
-    p[0] = p[1]
+    p[0] = ("var", p[1])  # Las variables se envuelven en la tupla para el análisis semántico
 
 # ============================================================
 # EXPRESIONES LÓGICAS (Camila Morán)

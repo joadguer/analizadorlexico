@@ -5,7 +5,7 @@ from parser import analizar
 # ============================================================
 # CONFIGURACIÓN DEL DESARROLLADOR
 # ============================================================
-DESARROLLADOR = "CamilaMoran"
+DESARROLLADOR = "JosueGuerrero"
 
 fecha = datetime.datetime.now().strftime("%d%m%Y-%Hh%M")
 nombre_log = f"semantico-{DESARROLLADOR}-{fecha}.txt"
@@ -27,8 +27,12 @@ class SymbolTable:
         self.symbols = {}
         self.functions = {}
 
-    def declare_var(self, name, vtype="unknown"):
+    def declare_var(self, name, vtype="local"):
         self.symbols[name] = vtype
+
+    # === PARTE DE JOSUE: Registro de Constantes ===
+    def declare_const(self, name):
+        self.symbols[name] = "constante"
 
     def is_declared(self, name):
         return name in self.symbols
@@ -53,17 +57,26 @@ class SemanticAnalyzer:
         log.write("ERROR SEMÁNTICO: " + msg + "\n")
 
     # --------------------------------------------------------
-    # REGLA 1: variables deben declararse antes de uso
+    # REGLA 1: Variables deben declararse antes de uso (Parte de Josue)
     # --------------------------------------------------------
     def check_variable(self, name):
         if not self.table.is_declared(name):
-            self.error(f"Variable '{name}' no declarada")
+            # Mensaje de error personalizado según la documentación
+            self.error(f"Error Semántico [Identificadores]: La variable '{name}' no ha sido definida en este ámbito.")
 
     # --------------------------------------------------------
-    # REGLA 2: asignación de variables
+    # REGLA 2: Asignación de variables y Constantes (Parte de Josue)
     # --------------------------------------------------------
     def assign(self, name):
         self.table.declare_var(name)
+
+    # === PARTE DE JOSUE: Validación de Constantes ===
+    def assign_const(self, name):
+        if self.table.is_declared(name):
+            # Si ya está en la tabla de símbolos, disparamos el error de reasignación
+            self.error(f"Error Semántico [Asignación]: Modificación no permitida. Ya se ha inicializado la constante '{name}' previamente.")
+        else:
+            self.table.declare_const(name)
 
     # --------------------------------------------------------
     # REGLA 3: funciones y parámetros
@@ -122,6 +135,12 @@ class SemanticRunner:
         elif op == "asignacion_local":
             _, _, name, expr = node
             self.sem.assign(name)
+            self.eval_expr(expr)
+
+        # === PARTE DE JOSUE: Asignación de Constantes ===
+        elif op == "asignacion_constante":
+            _, _, name, expr = node
+            self.sem.assign_const(name)
             self.eval_expr(expr)
 
         # VARIABLE USO
@@ -199,10 +218,10 @@ class SemanticRunner:
 # ============================================================
 if __name__ == "__main__":
 
-    archivo = "algoritmo_camila.rb"
+    archivo = "algoritmo_error_semantico_josue.rb"
 
     if not os.path.exists(archivo):
-        print("Archivo no encontrado")
+        print(f"Archivo {archivo} no encontrado")
         exit()
 
     with open(archivo, "r", encoding="utf-8") as f:
