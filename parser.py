@@ -5,8 +5,8 @@ from lex import lexer, tokens
 # ============================================================
 # CONFIGURACIÓN DEL LOG
 # ============================================================
-
-USUARIO = "JosueGuerrero"
+# Camila Morán
+USUARIO = "CamilaMoran"
 
 # Formato exigido: sintactico-usuarioGit-fecha-hora.txt
 fecha = datetime.datetime.now().strftime("%d%m%Y-%Hh%M")
@@ -253,7 +253,8 @@ def analizar(codigo):
 
 if __name__ == "__main__":
     # Asegúrate de tener tu archivo .rb en el mismo directorio
-    archivo = "algoritmo_josue.rb" 
+    # Camila Morán
+    archivo = "algoritmo_camila.rb"
 
     try:
         with open(archivo, "r", encoding="utf-8") as f:
