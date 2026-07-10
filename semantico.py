@@ -1,23 +1,23 @@
 import os
 import datetime
-from parser import analizar
+from parser import analizar_web
 
-# ============================================================
-# CONFIGURACIÓN DEL DESARROLLADOR
-# ============================================================
-DESARROLLADOR = "JosueGuerrero"
+# # ============================================================
+# # CONFIGURACIÓN DEL DESARROLLADOR
+# # ============================================================
+# DESARROLLADOR = "JosueGuerrero"
 
-fecha = datetime.datetime.now().strftime("%d%m%Y-%Hh%M")
-nombre_log = f"semantico-{DESARROLLADOR}-{fecha}.txt"
+# fecha = datetime.datetime.now().strftime("%d%m%Y-%Hh%M")
+# nombre_log = f"semantico-{DESARROLLADOR}-{fecha}.txt"
 
-log = open(nombre_log, "w", encoding="utf-8")
+# log = open(nombre_log, "w", encoding="utf-8")
 
-log.write("============================================================\n")
-log.write("LOG DE ANÁLISIS SEMÁNTICO - AVANCE 3\n")
-log.write("============================================================\n")
-log.write(f"Desarrollador: {DESARROLLADOR}\n")
-log.write(f"Fecha        : {fecha}\n")
-log.write("============================================================\n\n")
+# log.write("============================================================\n")
+# log.write("LOG DE ANÁLISIS SEMÁNTICO - AVANCE 3\n")
+# log.write("============================================================\n")
+# log.write(f"Desarrollador: {DESARROLLADOR}\n")
+# log.write(f"Fecha        : {fecha}\n")
+# log.write("============================================================\n\n")
 
 # ============================================================
 # TABLA DE SÍMBOLOS
@@ -54,7 +54,7 @@ class SemanticAnalyzer:
 
     def error(self, msg):
         self.errors.append(msg)
-        log.write("ERROR SEMÁNTICO: " + msg + "\n")
+        # log.write("ERROR SEMÁNTICO: " + msg + "\n")
 
     # --------------------------------------------------------
     # REGLA 1: Variables deben declararse antes de uso (Parte de Josue)
@@ -116,9 +116,9 @@ class SemanticRunner:
         for node in ast:
             self.visit(node)
 
-        log.write("\n============================================================\n")
-        log.write("RESUMEN\n")
-        log.write(f"Errores semánticos encontrados: {len(self.sem.errors)}\n")
+        print("\n============================================================")
+        print("RESUMEN SEMÁNTICO")
+        print(f"Errores semánticos encontrados: {len(self.sem.errors)}")
 
     # --------------------------------------------------------
     def visit(self, node):
@@ -164,6 +164,12 @@ class SemanticRunner:
             _, name, params, body = node
             self.inside_function = True
             self.sem.define_function(name, params)
+            
+            # Guardamos los parámetros en la tabla de símbolos como variables locales
+            # para que el cuerpo de la función pueda utilizarlos sin dar error.
+            for parametro in params:
+                self.sem.assign(parametro)
+                
             self.visit_block(body)
             self.inside_function = False
 
@@ -229,11 +235,10 @@ if __name__ == "__main__":
 
     print("Analizando semánticamente...")
 
-    ast = analizar(codigo)
+    ast, errores = analizar_web(codigo)
 
     runner = SemanticRunner()
     runner.run(ast)
 
-    log.close()
-
-    print(f"Log generado: {nombre_log}")
+    # log.close()
+    # print(f"Log generado: {nombre_log}")

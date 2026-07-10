@@ -2,24 +2,24 @@ import ply.yacc as yacc
 import datetime
 from lex import lexer, tokens
 
-# ============================================================
-# CONFIGURACIÓN DEL LOG
-# ============================================================
-# Camila Morán
-USUARIO = "CamilaMoran"
+# # ============================================================
+# # CONFIGURACIÓN DEL LOG
+# # ============================================================
+# # Camila Morán
+# USUARIO = "CamilaMoran"
 
-# Formato exigido: sintactico-usuarioGit-fecha-hora.txt
-fecha = datetime.datetime.now().strftime("%d%m%Y-%Hh%M")
-log_name = f"sintactico-{USUARIO}-{fecha}.txt"
+# # Formato exigido: sintactico-usuarioGit-fecha-hora.txt
+# fecha = datetime.datetime.now().strftime("%d%m%Y-%Hh%M")
+# log_name = f"sintactico-{USUARIO}-{fecha}.txt"
 
-log = open(log_name, "w", encoding="utf-8")
+# log = open(log_name, "w", encoding="utf-8")
 
-log.write("============================================================\n")
-log.write("LOG DE ANÁLISIS SINTÁCTICO - AVANCE 2\n")
-log.write("============================================================\n")
-log.write(f"Usuario: {USUARIO}\n")
-log.write(f"Fecha  : {fecha}\n")
-log.write("============================================================\n\n")
+# log.write("============================================================\n")
+# log.write("LOG DE ANÁLISIS SINTÁCTICO - AVANCE 2\n")
+# log.write("============================================================\n")
+# log.write(f"Usuario: {USUARIO}\n")
+# log.write(f"Fecha  : {fecha}\n")
+# log.write("============================================================\n\n")
 
 # ============================================================
 # PRECEDENCIA DE OPERADORES (Josue)
@@ -228,14 +228,44 @@ def p_return(p):
 # ERROR SINTÁCTICO (OBLIGATORIO)
 # ============================================================
 
-def p_error(p):
-    if p:
-        msg = f"ERROR SINTACTICO: Token inesperado '{p.value}' (tipo {p.type}) en la línea {p.lineno}\n"
-    else:
-        msg = "ERROR SINTACTICO: Fin de archivo inesperado\n"
+# def p_error(p):
+#     if p:
+#         msg = f"ERROR SINTACTICO: Token inesperado '{p.value}' (tipo {p.type}) en la línea {p.lineno}\n"
+#     else:
+#         msg = "ERROR SINTACTICO: Fin de archivo inesperado\n"
 
-    print(msg)
-    log.write(msg)
+#     print(msg)
+#     log.write(msg)
+
+# ============================================================
+# CONSTRUCCIÓN DEL PARSER
+# ============================================================
+
+# parser = yacc.yacc()
+
+# ============================================================
+# FUNCIÓN PRINCIPAL
+# ============================================================
+
+# def analizar(codigo):
+#     lexer.lineno = 1
+#     return parser.parse(codigo, lexer=lexer)
+
+
+# ============================================================
+# ERROR SINTÁCTICO (ADAPTADO PARA WEB)
+# ============================================================
+errores_sintacticos = []
+
+def p_error(p):
+    global errores_sintacticos
+    if p:
+        msg = f"Token inesperado '{p.value}' (tipo {p.type}) en la línea {p.lineno}"
+        errores_sintacticos.append({"error": msg, "linea": p.lineno})
+    else:
+        msg = "Fin de archivo inesperado"
+        errores_sintacticos.append({"error": msg, "linea": "EOF"})
+    print(f"ERROR SINTACTICO: {msg}")
 
 # ============================================================
 # CONSTRUCCIÓN DEL PARSER
@@ -244,20 +274,21 @@ def p_error(p):
 parser = yacc.yacc()
 
 # ============================================================
-# FUNCIÓN PRINCIPAL
+# FUNCIÓN PRINCIPAL WEB
 # ============================================================
-
-def analizar(codigo):
+def analizar_web(codigo):
+    global errores_sintacticos
+    errores_sintacticos.clear()  # Limpiamos errores de la corrida anterior
     lexer.lineno = 1
-    return parser.parse(codigo, lexer=lexer)
+    ast = parser.parse(codigo, lexer=lexer)
+    return ast, errores_sintacticos
+
 
 # ============================================================
-# TEST
+# TEST AISLADO (Solo se ejecuta si corres este archivo directamente)
 # ============================================================
 
 if __name__ == "__main__":
-    # Asegúrate de tener tu archivo .rb en el mismo directorio
-    # Camila Morán
     archivo = "algoritmo_camila.rb"
 
     try:
@@ -265,13 +296,16 @@ if __name__ == "__main__":
             data = f.read()
 
         print("Analizando código...\n")
-        resultado = analizar(data)
+        # Usamos la nueva función adaptada para web
+        ast, errores = analizar_web(data)
 
         print("\n=== AST GENERADO ===")
-        print(resultado)
+        print(ast)
+        
+        if errores:
+            print("\n=== ERRORES SINTÁCTICOS ENCONTRADOS ===")
+            for e in errores:
+                print(e["error"])
 
     except FileNotFoundError:
         print(f"Archivo '{archivo}' no encontrado. Verifica la ruta.")
-
-    log.close()
-    print(f"\nLog generado: {log_name}")
