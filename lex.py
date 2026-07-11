@@ -198,16 +198,30 @@ def t_newline(t):
 # Ignorar espacios y tabs
 # ============================================================
 
-t_ignore = ' \t'
+# ============================================================
+# Ignorar espacios, tabs y retornos de carro (CR)
+# ============================================================
+
+t_ignore = ' \t\r'
 
 # ============================================================
 # Manejo de errores
 # ============================================================
+errores_lexicos = []
 
 def t_error(t):
-    print("Illegal character '%s'" % t.value[0])
+    global errores_lexicos
+    # Guardamos el error con el mismo formato que los tokens válidos
+    # para que la tabla HTML pueda dibujarlo perfectamente.
+    errores_lexicos.append({
+        "token": "ERROR LÉXICO",
+        "tipo": "CARACTER_ILEGAL",
+        "valor": t.value[0],
+        "linea": t.lexer.lineno,
+        "columna": "-"
+    })
+    print("Illegal character '%s' en la línea %d" % (t.value[0], t.lexer.lineno))
     t.lexer.skip(1)
-
 # ============================================================
 # Construcción del lexer
 # ============================================================

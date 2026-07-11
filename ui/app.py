@@ -3,7 +3,7 @@ from datetime import datetime
 from flask import Flask, render_template, request
 
 # Importamos los analizadores
-from lex import lexer
+from lex import lexer, errores_lexicos
 from parser import analizar_web
 from semantico import SemanticRunner
 
@@ -62,6 +62,7 @@ def index():
             # ==========================================
             # 1. ANÁLISIS LÉXICO
             # ==========================================
+            errores_lexicos.clear()  # Limpiar errores de la ejecución anterior
             lexer.lineno = 1
             lexer.input(codigo_previo)
             
@@ -76,47 +77,55 @@ def index():
                 })
             
             stats["tokens"] = len(tokens_lexico)
-            stats["estado"] = "Sin errores"
 
-            # ==========================================
-            # 2. ANÁLISIS SINTÁCTICO
-            # ==========================================
-            ast, err_sintacticos = analizar_web(codigo_previo)
-            
-            if err_sintacticos:
-                stats["estado"] = "⚠️ Error Sintáctico"
-                for e in err_sintacticos:
-                    reglas_sintactico.append({
-                        "regla": f"ERROR (Línea {e['linea']})",
-                        "expresion": e['error'],
-                        "estado": "❌ Fallido"
-                    })
-            elif ast:
-                aplanar_ast(ast, reglas_sintactico)
+            # --- CONTROL DE FLUJO EN CASCADA ---
+            if errores_lexicos:
+                # Si hay errores léxicos, los agregamos a la tabla, cambiamos estado y DETENEMOS el flujo
+                tokens_lexico.extend(errores_lexicos)
+                stats["estado"] = "⚠️ Error Léxico"
+            else:
+                # Si el léxico está totalmente limpio, procedemos con las siguientes fases
+                stats["estado"] = "Sin errores"
                 
                 # ==========================================
-                # 3. ANÁLISIS SEMÁNTICO (Solo si Sintáctico es OK)
+                # 2. ANÁLISIS SINTÁCTICO (Solo si el Léxico es OK)
                 # ==========================================
-                runner = SemanticRunner()
-                runner.run(ast)
-
-                # Agregar la tabla de símbolos a la vista
-                for variable, tipo in runner.sem.table.symbols.items():
-                    tabla_semantico.append({
-                        "variable": variable,
-                        "tipo": tipo.upper(),
-                        "valor": "✅ Declarada en Memoria"
-                    })
-
-                # Si hay errores semánticos, los ponemos al principio de la tabla
-                if runner.sem.errors:
-                    stats["estado"] = "⚠️ Error Semántico"
-                    for error in runner.sem.errors:
-                        tabla_semantico.insert(0, {
-                            "variable": "ERROR SEMÁNTICO",
-                            "tipo": "INCOHERENCIA LÓGICA",
-                            "valor": f"❌ {error}"
+                ast, err_sintacticos = analizar_web(codigo_previo)
+                
+                if err_sintacticos:
+                    stats["estado"] = "⚠️ Error Sintáctico"
+                    for e in err_sintacticos:
+                        reglas_sintactico.append({
+                            "regla": f"ERROR (Línea {e['linea']})",
+                            "expresion": e['error'],
+                            "estado": "❌ Fallido"
                         })
+                elif ast:
+                    aplanar_ast(ast, reglas_sintactico)
+                    
+                    # ==========================================
+                    # 3. ANÁLISIS SEMÁNTICO (Solo si Sintáctico es OK)
+                    # ==========================================
+                    runner = SemanticRunner()
+                    runner.run(ast)
+
+                    # Agregar la tabla de símbolos a la vista
+                    for variable, tipo in runner.sem.table.symbols.items():
+                        tabla_semantico.append({
+                            "variable": variable,
+                            "tipo": tipo.upper(),
+                            "valor": "✅ Declarada en Memoria"
+                        })
+
+                    # Si hay errores semánticos, los ponemos al principio de la tabla
+                    if runner.sem.errors:
+                        stats["estado"] = "⚠️ Error Semántico"
+                        for error in runner.sem.errors:
+                            tabla_semantico.insert(0, {
+                                "variable": "ERROR SEMÁNTICO",
+                                "tipo": "INCOHERENCIA LÓGICA",
+                                "valor": f"❌ {error}"
+                            })
 
             # ==========================================
             # GUARDADO DE LOGS (Modal)
@@ -141,11 +150,17 @@ def index():
                                 for t in tokens_lexico:
                                     f.write(f"Línea {t['linea']}, Col {t['columna']} | {t['tipo']} : {t['valor']}\n")
                             elif fase == 'sintactico':
-                                for s in reglas_sintactico:
-                                    f.write(f"Regla: {s['regla']} | Estado: {s['estado']}\nDetalle: {s['expresion']}\n{'-'*40}\n")
+                                if not reglas_sintactico:
+                                    f.write("No se detectaron errores sintácticos o no hay datos cargados.\n")
+                                else:
+                                    for s in reglas_sintactico:
+                                        f.write(f"Regla: {s['regla']} | Estado: {s['estado']}\nDetalle: {s['expresion']}\n{'-'*40}\n")
                             elif fase == 'semantico':
-                                for s in tabla_semantico:
-                                    f.write(f"ID: {s['variable']} | Tipo: {s['tipo']} | Valor: {s['valor']}\n")
+                                if not tabla_semantico:
+                                    f.write("No hay datos en la tabla de símbolos o no hay datos cargados.\n")
+                                else:
+                                    for s in tabla_semantico:
+                                        f.write(f"ID: {s['variable']} | Tipo: {s['tipo']} | Valor: {s['valor']}\n")
                     
                     stats["estado"] += " (Logs Guardados)"
 
