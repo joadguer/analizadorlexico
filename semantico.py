@@ -142,7 +142,13 @@ class SemanticRunner:
             _, _, name, expr = node
             self.sem.assign_const(name)
             self.eval_expr(expr)
-
+        
+        # ASIGNACIÓN DE INSTANCIA (Agrega este bloque)
+        elif op == "asignacion_instancia":
+            _, _, name, expr = node
+            # Registramos la variable de instancia en la tabla
+            self.sem.table.declare_var(name, "instancia") 
+            self.eval_expr(expr)
         # VARIABLE USO
         elif op == "var":
             self.sem.check_variable(node[1])
@@ -169,7 +175,7 @@ class SemanticRunner:
             # para que el cuerpo de la función pueda utilizarlos sin dar error.
             for parametro in params:
                 self.sem.assign(parametro)
-                
+
             self.visit_block(body)
             self.inside_function = False
 
