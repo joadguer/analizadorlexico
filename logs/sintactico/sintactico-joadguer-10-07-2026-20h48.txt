@@ -1,0 +1,106 @@
+=== LOG DE ANÁLISIS SINTACTICO ===
+Usuario: joadguer
+Fecha: 2026-07-10 20:48:35
+========================================
+Regla: ASIGNACION_CONSTANTE | Estado: ✅ Correcto
+Detalle: ('=', 'IMPUESTO', 12)
+----------------------------------------
+Regla: ASIGNACION_LOCAL | Estado: ✅ Correcto
+Detalle: ('=', 'precio', 100)
+----------------------------------------
+Regla: ASIGNACION_LOCAL | Estado: ✅ Correcto
+Detalle: ('=', 'estado', 'true')
+----------------------------------------
+Regla: FUNCTION_PARAMS | Estado: ✅ Correcto
+Detalle: ('calcular_total', ['monto', 'iva'], [('asignacion_local', '=', 'calculo', ('arith', '+', ('var', 'monto'), ('var', 'iva'))), ('return', ('var', 'calculo'))])
+----------------------------------------
+Regla: ASIGNACION_LOCAL | Estado: ✅ Correcto
+Detalle: ('=', 'calculo', ('arith', '+', ('var', 'monto'), ('var', 'iva')))
+----------------------------------------
+Regla: ARITH | Estado: ✅ Correcto
+Detalle: ('+', ('var', 'monto'), ('var', 'iva'))
+----------------------------------------
+Regla: VAR | Estado: ✅ Correcto
+Detalle: ('monto',)
+----------------------------------------
+Regla: VAR | Estado: ✅ Correcto
+Detalle: ('iva',)
+----------------------------------------
+Regla: RETURN | Estado: ✅ Correcto
+Detalle: (('var', 'calculo'),)
+----------------------------------------
+Regla: VAR | Estado: ✅ Correcto
+Detalle: ('calculo',)
+----------------------------------------
+Regla: IF_ELSE | Estado: ✅ Correcto
+Detalle: (('rel', '>', ('var', 'precio'), ('logic', '&&', 50, ('rel', '==', ('var', 'estado'), 'true'))), [('asignacion_local', '=', 'total', ('call_function_expr', 'calcular_total', [('var', 'precio'), ('var', 'IMPUESTO')])), ('print', ('var', 'total'))], [('print', 0)])
+----------------------------------------
+Regla: REL | Estado: ✅ Correcto
+Detalle: ('>', ('var', 'precio'), ('logic', '&&', 50, ('rel', '==', ('var', 'estado'), 'true')))
+----------------------------------------
+Regla: VAR | Estado: ✅ Correcto
+Detalle: ('precio',)
+----------------------------------------
+Regla: LOGIC | Estado: ✅ Correcto
+Detalle: ('&&', 50, ('rel', '==', ('var', 'estado'), 'true'))
+----------------------------------------
+Regla: REL | Estado: ✅ Correcto
+Detalle: ('==', ('var', 'estado'), 'true')
+----------------------------------------
+Regla: VAR | Estado: ✅ Correcto
+Detalle: ('estado',)
+----------------------------------------
+Regla: ASIGNACION_LOCAL | Estado: ✅ Correcto
+Detalle: ('=', 'total', ('call_function_expr', 'calcular_total', [('var', 'precio'), ('var', 'IMPUESTO')]))
+----------------------------------------
+Regla: CALL_FUNCTION_EXPR | Estado: ✅ Correcto
+Detalle: ('calcular_total', [('var', 'precio'), ('var', 'IMPUESTO')])
+----------------------------------------
+Regla: VAR | Estado: ✅ Correcto
+Detalle: ('precio',)
+----------------------------------------
+Regla: VAR | Estado: ✅ Correcto
+Detalle: ('IMPUESTO',)
+----------------------------------------
+Regla: PRINT | Estado: ✅ Correcto
+Detalle: (('var', 'total'),)
+----------------------------------------
+Regla: VAR | Estado: ✅ Correcto
+Detalle: ('total',)
+----------------------------------------
+Regla: PRINT | Estado: ✅ Correcto
+Detalle: (0,)
+----------------------------------------
+Regla: ASIGNACION_LOCAL | Estado: ✅ Correcto
+Detalle: ('=', 'contador', 0)
+----------------------------------------
+Regla: WHILE | Estado: ✅ Correcto
+Detalle: (('rel', '<', ('var', 'contador'), 3), [('asignacion_local', '+=', 'contador', 1)])
+----------------------------------------
+Regla: REL | Estado: ✅ Correcto
+Detalle: ('<', ('var', 'contador'), 3)
+----------------------------------------
+Regla: VAR | Estado: ✅ Correcto
+Detalle: ('contador',)
+----------------------------------------
+Regla: ASIGNACION_LOCAL | Estado: ✅ Correcto
+Detalle: ('+=', 'contador', 1)
+----------------------------------------
+Regla: ASIGNACION_LOCAL | Estado: ✅ Correcto
+Detalle: ('=', 'mi_lista', ('list', [10, 20, 30]))
+----------------------------------------
+Regla: LIST | Estado: ✅ Correcto
+Detalle: ([10, 20, 30],)
+----------------------------------------
+Regla: ASIGNACION_LOCAL | Estado: ✅ Correcto
+Detalle: ('=', 'mi_hash', ('hash', [('par', 1, 100), ('par', 2, 200)]))
+----------------------------------------
+Regla: HASH | Estado: ✅ Correcto
+Detalle: ([('par', 1, 100), ('par', 2, 200)],)
+----------------------------------------
+Regla: PAR | Estado: ✅ Correcto
+Detalle: (1, 100)
+----------------------------------------
+Regla: PAR | Estado: ✅ Correcto
+Detalle: (2, 200)
+----------------------------------------

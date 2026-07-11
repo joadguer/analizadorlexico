@@ -1,0 +1,14 @@
+=== LOG DE ANÁLISIS SEMANTICO ===
+Usuario: joadguer
+Fecha: 2026-07-10 20:48:35
+========================================
+ID: IMPUESTO | Tipo: CONSTANTE | Valor: ✅ Declarada en Memoria
+ID: precio | Tipo: LOCAL | Valor: ✅ Declarada en Memoria
+ID: estado | Tipo: LOCAL | Valor: ✅ Declarada en Memoria
+ID: monto | Tipo: LOCAL | Valor: ✅ Declarada en Memoria
+ID: iva | Tipo: LOCAL | Valor: ✅ Declarada en Memoria
+ID: calculo | Tipo: LOCAL | Valor: ✅ Declarada en Memoria
+ID: total | Tipo: LOCAL | Valor: ✅ Declarada en Memoria
+ID: contador | Tipo: LOCAL | Valor: ✅ Declarada en Memoria
+ID: mi_lista | Tipo: LOCAL | Valor: ✅ Declarada en Memoria
+ID: mi_hash | Tipo: LOCAL | Valor: ✅ Declarada en Memoria

@@ -1,0 +1,19 @@
+=== LOG DE ANÁLISIS SINTACTICO ===
+Usuario: joadguer
+Fecha: 2026-07-10 20:45:55
+========================================
+Regla: ERROR (Línea 8) | Estado: ❌ Fallido
+Detalle: Token inesperado '>=' (tipo MAYORIGUAL) en la línea 8
+----------------------------------------
+Regla: CALL_FUNCTION | Estado: ✅ Correcto
+Detalle: ('saludar', [('var', 'nombre')])
+----------------------------------------
+Regla: VAR | Estado: ✅ Correcto
+Detalle: ('nombre',)
+----------------------------------------
+Regla: PRINT | Estado: ✅ Correcto
+Detalle: (('var', 'nombre'),)
+----------------------------------------
+Regla: VAR | Estado: ✅ Correcto
+Detalle: ('nombre',)
+----------------------------------------

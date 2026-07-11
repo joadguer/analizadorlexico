@@ -1,0 +1,22 @@
+=== LOG DE ANÁLISIS LEXICO ===
+Usuario: joadguer
+Fecha: 2026-07-10 20:45:32
+========================================
+Línea 5, Col 1 | VARIABLE_LOCAL : precio
+Línea 5, Col 8 | ASIGNACION : =
+Línea 5, Col 10 | ENTERO : 100
+Línea 6, Col 1 | VARIABLE_LOCAL : descuento
+Línea 6, Col 11 | ASIGNACION : =
+Línea 6, Col 13 | ENTERO : 10
+Línea 9, Col 1 | VARIABLE_LOCAL : total
+Línea 9, Col 7 | ASIGNACION : =
+Línea 9, Col 9 | VARIABLE_LOCAL : precio
+Línea 9, Col 18 | VARIABLE_LOCAL : descuento
+Línea 12, Col 1 | VARIABLE_LOCAL : es_valido
+Línea 12, Col 11 | ASIGNACION : =
+Línea 12, Col 13 | TRUE : true
+Línea 12, Col 20 | FALSE : false
+Línea 14, Col 1 | PUTS : puts
+Línea 14, Col 6 | VARIABLE_LOCAL : total
+Línea 9, Col - | CARACTER_ILEGAL : ~
+Línea 12, Col - | CARACTER_ILEGAL : ?

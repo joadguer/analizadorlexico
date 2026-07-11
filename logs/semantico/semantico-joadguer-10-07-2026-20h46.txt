@@ -1,0 +1,13 @@
+=== LOG DE ANÁLISIS SEMANTICO ===
+Usuario: joadguer
+Fecha: 2026-07-10 20:46:17
+========================================
+ID: ERROR SEMÁNTICO | Tipo: INCOHERENCIA LÓGICA | Valor: ❌ Función 'procesar_datos' esperaba 2 args y recibió 1
+ID: ERROR SEMÁNTICO | Tipo: INCOHERENCIA LÓGICA | Valor: ❌ RETURN fuera de función
+ID: ERROR SEMÁNTICO | Tipo: INCOHERENCIA LÓGICA | Valor: ❌ Error Semántico [Identificadores]: La variable 'variable_fantasma' no ha sido definida en este ámbito.
+ID: ERROR SEMÁNTICO | Tipo: INCOHERENCIA LÓGICA | Valor: ❌ Error Semántico [Asignación]: Modificación no permitida. Ya se ha inicializado la constante 'PI' previamente.
+ID: PI | Tipo: CONSTANTE | Valor: ✅ Declarada en Memoria
+ID: a | Tipo: LOCAL | Valor: ✅ Declarada en Memoria
+ID: b | Tipo: LOCAL | Valor: ✅ Declarada en Memoria
+ID: resultado | Tipo: LOCAL | Valor: ✅ Declarada en Memoria
+ID: calculo | Tipo: LOCAL | Valor: ✅ Declarada en Memoria

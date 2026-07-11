@@ -102,11 +102,7 @@ http://127.0.0.1:5000
 
 ## Características Técnicas Implementadas
 
-### 1. Cero JavaScript
-
-Toda la interactividad (envío de código, limpieza de datos, análisis léxico reactivo y persistencia del texto en el editor) se realiza mediante formularios HTTP tradicionales (`POST`) y renderizado directo con el motor de plantillas Jinja2 de Flask.
-
-### 2. Control de Pestañas CSS Puro
+### 1. Control de Pestañas CSS Puro
 
 El cambio dinámico entre las vistas de los analizadores (Léxico, Sintáctico y Semántico) está resuelto en la hoja de estilos CSS mediante selectores hermanos combinados con inputs invisibles de tipo radio:
 
@@ -114,13 +110,13 @@ El cambio dinámico entre las vistas de los analizadores (Léxico, Sintáctico y
 #tab:checked ~ .tab-content
 ```
 
-### 3. Estilización Tipográfica Avanzada
+### 2. Estilización Tipográfica Avanzada
 
 Incorporación directa de fuentes profesionales de Google Fonts:
 
 - **JetBrains Mono** para una legibilidad óptima de los tokens extraídos y el código fuente.
 - **Inter** para los componentes estructurales de la interfaz.
 
-### 4. Visualización de Componentes Mediante SVGs
+### 3. Visualización de Componentes Mediante SVGs
 
 Botones y estados enriquecidos con vectores geométricos lineales dinámicos nativos en HTML que reaccionan con transiciones a los focos de acción.

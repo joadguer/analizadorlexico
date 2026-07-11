@@ -9,8 +9,8 @@ from semantico import SemanticRunner
 
 app = Flask(__name__)
 
-# Configuración de carpetas
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# Configuración de carpetas (Volvemos a subir 2 niveles para salir de 'ui')
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LOGS_DIR = os.path.join(BASE_DIR, 'logs')
 
 # Asegurar que las carpetas de logs existan
@@ -62,7 +62,7 @@ def index():
             # ==========================================
             # 1. ANÁLISIS LÉXICO
             # ==========================================
-            errores_lexicos.clear()  # Limpiar errores de la ejecución anterior
+            errores_lexicos.clear()  
             lexer.lineno = 1
             lexer.input(codigo_previo)
             
@@ -76,56 +76,65 @@ def index():
                     "linea": tok.lineno, "columna": col
                 })
             
+            if errores_lexicos:
+                tokens_lexico.extend(errores_lexicos)
+            
             stats["tokens"] = len(tokens_lexico)
 
-            # --- CONTROL DE FLUJO EN CASCADA ---
+            # ==========================================
+            # 2. ANÁLISIS SINTÁCTICO
+            # ==========================================
+            # Ejecutamos el parser SIEMPRE, sin importar si hubo errores léxicos
+            ast, err_sintacticos = analizar_web(codigo_previo)
+            
+            if err_sintacticos:
+                for e in err_sintacticos:
+                    reglas_sintactico.append({
+                        "regla": f"ERROR (Línea {e['linea']})",
+                        "expresion": e['error'],
+                        "estado": "❌ Fallido"
+                    })
+            
+            # Si el parser logró construir al menos una parte del árbol, lo aplanamos
+            if ast:
+                aplanar_ast(ast, reglas_sintactico)
+                
+                # ==========================================
+                # 3. ANÁLISIS SEMÁNTICO
+                # ==========================================
+                # Solo podemos hacer análisis semántico si existe un Árbol (AST)
+                runner = SemanticRunner()
+                runner.run(ast)
+
+                for variable, tipo in runner.sem.table.symbols.items():
+                    tabla_semantico.append({
+                        "variable": variable,
+                        "tipo": tipo.upper(),
+                        "valor": "✅ Declarada en Memoria"
+                    })
+
+                if runner.sem.errors:
+                    for error in runner.sem.errors:
+                        tabla_semantico.insert(0, {
+                            "variable": "ERROR SEMÁNTICO",
+                            "tipo": "INCOHERENCIA LÓGICA",
+                            "valor": f"❌ {error}"
+                        })
+
+            # ==========================================
+            # ÁRBITRO DE ESTADO (Prioridad de Errores)
+            # ==========================================
+            hay_errores_semanticos = len(tabla_semantico) > 0 and "ERROR SEMÁNTICO" in tabla_semantico[0]["variable"]
+
             if errores_lexicos:
-                # Si hay errores léxicos, los agregamos a la tabla, cambiamos estado y DETENEMOS el flujo
-                tokens_lexico.extend(errores_lexicos)
                 stats["estado"] = "⚠️ Error Léxico"
+            elif err_sintacticos:
+                stats["estado"] = "⚠️ Error Sintáctico"
+            elif hay_errores_semanticos:
+                stats["estado"] = "⚠️ Error Semántico"
             else:
-                # Si el léxico está totalmente limpio, procedemos con las siguientes fases
                 stats["estado"] = "Sin errores"
-                
-                # ==========================================
-                # 2. ANÁLISIS SINTÁCTICO (Solo si el Léxico es OK)
-                # ==========================================
-                ast, err_sintacticos = analizar_web(codigo_previo)
-                
-                if err_sintacticos:
-                    stats["estado"] = "⚠️ Error Sintáctico"
-                    for e in err_sintacticos:
-                        reglas_sintactico.append({
-                            "regla": f"ERROR (Línea {e['linea']})",
-                            "expresion": e['error'],
-                            "estado": "❌ Fallido"
-                        })
-                elif ast:
-                    aplanar_ast(ast, reglas_sintactico)
-                    
-                    # ==========================================
-                    # 3. ANÁLISIS SEMÁNTICO (Solo si Sintáctico es OK)
-                    # ==========================================
-                    runner = SemanticRunner()
-                    runner.run(ast)
 
-                    # Agregar la tabla de símbolos a la vista
-                    for variable, tipo in runner.sem.table.symbols.items():
-                        tabla_semantico.append({
-                            "variable": variable,
-                            "tipo": tipo.upper(),
-                            "valor": "✅ Declarada en Memoria"
-                        })
-
-                    # Si hay errores semánticos, los ponemos al principio de la tabla
-                    if runner.sem.errors:
-                        stats["estado"] = "⚠️ Error Semántico"
-                        for error in runner.sem.errors:
-                            tabla_semantico.insert(0, {
-                                "variable": "ERROR SEMÁNTICO",
-                                "tipo": "INCOHERENCIA LÓGICA",
-                                "valor": f"❌ {error}"
-                            })
 
             # ==========================================
             # GUARDADO DE LOGS (Modal)
@@ -167,7 +176,14 @@ def index():
         else:
             stats["estado"] = "⚠️ El editor está vacío"
 
-    return render_template('index.html', codigo=codigo_previo, lexico=tokens_lexico, sintactico=reglas_sintactico, semantico=tabla_semantico, stats=stats)
+    return render_template(
+        'index.html', 
+        codigo=codigo_previo, 
+        lexico=tokens_lexico, 
+        sintactico=reglas_sintactico, 
+        semantico=tabla_semantico, 
+        stats=stats
+    )
 
 if __name__ == '__main__':
     app.run(debug=True)
