@@ -22,7 +22,7 @@ from lex import lexer, tokens
 # log.write("============================================================\n\n")
 
 # ============================================================
-# PRECEDENCIA DE OPERADORES (Josue)
+# PRECEDENCIA DE OPERADORES
 # ============================================================
 precedence = (
     ('left', 'MAS', 'MENOS'), # Nivel 1: Menor prioridad (se ejecuta al final)
@@ -62,7 +62,7 @@ def p_input(p):
     p[0] = ("input", p[1])
 
 # ============================================================
-# ASIGNACIÓN DE VARIABLES (Josue)
+# ASIGNACIÓN DE VARIABLES
 # ============================================================
 
 def p_asignacion_local(p):
@@ -83,7 +83,7 @@ def p_asignacion_constante(p):
     p[0] = ("asignacion_constante", p[2], p[1], p[3])
 
 # ============================================================
-# EXPRESIONES ARITMÉTICAS (Josue)
+# EXPRESIONES ARITMÉTICAS
 # ============================================================
 
 def p_expr_arit(p):
@@ -114,7 +114,7 @@ def p_expr_variable(p):
     p[0] = ("var", p[1])  # Las variables se envuelven en la tupla para el análisis semántico
 
 # ============================================================
-# EXPRESIONES LÓGICAS (Camila Morán)
+# EXPRESIONES LÓGICAS
 # ============================================================
 
 def p_expr_logica(p):

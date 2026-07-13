@@ -5,7 +5,7 @@ from parser import analizar_web
 # # ============================================================
 # # CONFIGURACIÓN DEL DESARROLLADOR
 # # ============================================================
-# DESARROLLADOR = "JosueGuerrero"
+# DESARROLLADOR = "Integrante_nombre"
 
 # fecha = datetime.datetime.now().strftime("%d%m%Y-%Hh%M")
 # nombre_log = f"semantico-{DESARROLLADOR}-{fecha}.txt"
@@ -255,7 +255,7 @@ class SemanticRunner:
 # ============================================================
 if __name__ == "__main__":
 
-    archivo = "algoritmo_camila.rb"
+    archivo = "algoritmo_camila_semantico.rb"
 
     if not os.path.exists(archivo):
         print(f"Archivo {archivo} no encontrado")
