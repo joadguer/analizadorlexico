@@ -1,0 +1,39 @@
+=== LOG DE ANÁLISIS LEXICO ===
+Usuario: caalmora
+Fecha: 2026-07-11 19:44:07
+========================================
+Línea 1, Col 1 | DEF : def
+Línea 1, Col 5 | VARIABLE_LOCAL : calcular_promedio
+Línea 1, Col 22 | LPAREN : (
+Línea 1, Col 23 | VARIABLE_LOCAL : n1
+Línea 1, Col 25 | COMA : ,
+Línea 1, Col 27 | VARIABLE_LOCAL : n2
+Línea 1, Col 29 | RPAREN : )
+Línea 2, Col 3 | VARIABLE_LOCAL : promedio
+Línea 2, Col 12 | ASIGNACION : =
+Línea 2, Col 14 | LPAREN : (
+Línea 2, Col 15 | VARIABLE_LOCAL : n1
+Línea 2, Col 18 | MAS : +
+Línea 2, Col 20 | VARIABLE_LOCAL : n2
+Línea 2, Col 22 | RPAREN : )
+Línea 2, Col 24 | DIVISION : /
+Línea 2, Col 26 | ENTERO : 2
+Línea 4, Col 3 | IF : if
+Línea 4, Col 6 | VARIABLE_LOCAL : promedio
+Línea 4, Col 15 | MAYORIGUAL : >=
+Línea 4, Col 18 | ENTERO : 7
+Línea 5, Col 5 | PUTS : puts
+Línea 5, Col 10 | CADENA : "Aprobado"
+Línea 6, Col 3 | ELSE : else
+Línea 7, Col 5 | PUTS : puts
+Línea 7, Col 10 | CADENA : "Reprobado"
+Línea 8, Col 3 | END : end
+Línea 10, Col 3 | RETURN : return
+Línea 10, Col 10 | VARIABLE_LOCAL : promedio
+Línea 11, Col 1 | END : end
+Línea 13, Col 1 | VARIABLE_LOCAL : calcular_promedio
+Línea 13, Col 18 | LPAREN : (
+Línea 13, Col 19 | ENTERO : 8
+Línea 13, Col 20 | COMA : ,
+Línea 13, Col 22 | ENTERO : 10
+Línea 13, Col 24 | RPAREN : )

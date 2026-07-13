@@ -1,0 +1,7 @@
+=== LOG DE ANÁLISIS SINTACTICO ===
+Usuario: joadguer
+Fecha: 2026-07-11 19:42:04
+========================================
+Regla: ERROR (Línea EOF) | Estado: ❌ Fallido
+Detalle: Fin de archivo inesperado
+----------------------------------------

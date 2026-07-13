@@ -1,0 +1,5 @@
+=== LOG DE ANÁLISIS LEXICO ===
+Usuario: joadguer
+Fecha: 2026-07-11 19:42:04
+========================================
+Línea 1, Col 1 | VARIABLE_LOCAL : sola

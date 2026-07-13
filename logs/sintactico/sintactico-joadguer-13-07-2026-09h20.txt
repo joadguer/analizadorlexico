@@ -1,0 +1,40 @@
+=== LOG DE ANÁLISIS SINTACTICO ===
+Usuario: joadguer
+Fecha: 2026-07-13 09:20:06
+========================================
+Regla: ERROR (Línea 17) | Estado: ❌ Fallido
+Detalle: Token inesperado 'end' (tipo END) en la línea 17
+----------------------------------------
+Regla: ASIGNACION_LOCAL | Estado: ✅ Correcto
+Detalle: ('=', 'contador', 0)
+----------------------------------------
+Regla: WHILE | Estado: ✅ Correcto
+Detalle: (('rel', '<', ('var', 'contador'), 3), [('asignacion_local', '+=', 'contador', 1)])
+----------------------------------------
+Regla: REL | Estado: ✅ Correcto
+Detalle: ('<', ('var', 'contador'), 3)
+----------------------------------------
+Regla: VAR | Estado: ✅ Correcto
+Detalle: ('contador',)
+----------------------------------------
+Regla: ASIGNACION_LOCAL | Estado: ✅ Correcto
+Detalle: ('+=', 'contador', 1)
+----------------------------------------
+Regla: ASIGNACION_LOCAL | Estado: ✅ Correcto
+Detalle: ('=', 'mi_lista', ('list', [10, 20, 30]))
+----------------------------------------
+Regla: LIST | Estado: ✅ Correcto
+Detalle: ([10, 20, 30],)
+----------------------------------------
+Regla: ASIGNACION_LOCAL | Estado: ✅ Correcto
+Detalle: ('=', 'mi_hash', ('hash', [('par', 1, 100), ('par', 2, 200)]))
+----------------------------------------
+Regla: HASH | Estado: ✅ Correcto
+Detalle: ([('par', 1, 100), ('par', 2, 200)],)
+----------------------------------------
+Regla: PAR | Estado: ✅ Correcto
+Detalle: (1, 100)
+----------------------------------------
+Regla: PAR | Estado: ✅ Correcto
+Detalle: (2, 200)
+----------------------------------------

@@ -26,9 +26,11 @@ class SymbolTable:
     def __init__(self):
         self.symbols = {}
         self.functions = {}
+        self.initialized = set()
 
     def declare_var(self, name, vtype="local"):
         self.symbols[name] = vtype
+        self.initialized.add(name)
 
     # === PARTE DE JOSUE: Registro de Constantes ===
     def declare_const(self, name):
@@ -36,6 +38,9 @@ class SymbolTable:
 
     def is_declared(self, name):
         return name in self.symbols
+
+    def is_initialized(self, name):
+        return name in self.initialized
 
     def declare_function(self, name, params):
         self.functions[name] = params
@@ -57,15 +62,22 @@ class SemanticAnalyzer:
         # log.write("ERROR SEMÁNTICO: " + msg + "\n")
 
     # --------------------------------------------------------
-    # REGLA 1: Variables deben declararse antes de uso (Parte de Josue)
+    # REGLA 1: Variables deben declararse antes de uso
     # --------------------------------------------------------
     def check_variable(self, name):
-        if not self.table.is_declared(name):
-            # Mensaje de error personalizado según la documentación
-            self.error(f"Error Semántico [Identificadores]: La variable '{name}' no ha sido definida en este ámbito.")
 
+        if not self.table.is_declared(name):
+            self.error(
+                f"Error Semántico [Inicialización]: La variable '{name}' fue utilizada antes de ser inicializada."
+            )
+            return
+
+        if not self.table.is_initialized(name):
+            self.error(
+                f"Error Semántico [Inicialización]: La variable '{name}' fue utilizada antes de ser inicializada."
+            )
     # --------------------------------------------------------
-    # REGLA 2: Asignación de variables y Constantes (Parte de Josue)
+    # REGLA 2: Asignación de variables y Constantes
     # --------------------------------------------------------
     def assign(self, name):
         self.table.declare_var(name)
@@ -82,6 +94,16 @@ class SemanticAnalyzer:
     # REGLA 3: funciones y parámetros
     # --------------------------------------------------------
     def define_function(self, name, params):
+
+        vistos = set()
+
+        for parametro in params:
+            if parametro in vistos:
+                self.error(
+                    f"Error Semántico [Funciones]: El parámetro '{parametro}' está duplicado en la función '{name}'."
+                )
+            vistos.add(parametro)
+
         self.table.declare_function(name, params)
 
     def call_function(self, name, args):
@@ -137,7 +159,7 @@ class SemanticRunner:
             self.sem.assign(name)
             self.eval_expr(expr)
 
-        # === PARTE DE JOSUE: Asignación de Constantes ===
+        # Asignación de Constantes
         elif op == "asignacion_constante":
             _, _, name, expr = node
             self.sem.assign_const(name)
@@ -230,7 +252,7 @@ class SemanticRunner:
 # ============================================================
 if __name__ == "__main__":
 
-    archivo = "algoritmo_error_semantico_josue.rb"
+    archivo = "algoritmo_camila.rb"
 
     if not os.path.exists(archivo):
         print(f"Archivo {archivo} no encontrado")
