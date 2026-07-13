@@ -93,8 +93,11 @@ class SemanticAnalyzer:
     # --------------------------------------------------------
     # REGLA 3: funciones y parámetros
     # --------------------------------------------------------
+
+    # regla 4 . PARAMETROS DUPLICADOS
     def define_function(self, name, params):
 
+        # Verificar parámetros repetidos
         vistos = set()
 
         for parametro in params:
@@ -116,7 +119,7 @@ class SemanticAnalyzer:
             )
 
     # --------------------------------------------------------
-    # REGLA 4: return dentro de función (simple control)
+    # return dentro de función (simple control)
     # --------------------------------------------------------
     def check_return(self, inside_function):
         if not inside_function:
