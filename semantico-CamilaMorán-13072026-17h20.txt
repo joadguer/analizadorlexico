@@ -1,0 +1,12 @@
+============================================================
+LOG DE ANÁLISIS SEMÁNTICO - AVANCE 3
+============================================================
+Desarrollador: CamilaMorán
+Fecha        : 13072026-17h20
+============================================================
+
+ERROR SEMÁNTICO: Error Semántico [Funciones]: El parámetro 'valor1' está duplicado en la función 'promedio'.
+
+ERRORES SEMÁNTICOS
+============================================================
+Error Semántico [Funciones]: El parámetro 'valor1' está duplicado en la función 'promedio'.
